@@ -1,0 +1,55 @@
+{% extends  'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+    <title>ADD EMPLOYEE</title>
+    {% endblock %}
+
+
+
+    {% block content %}
+    <table class="table table-dark text-center">
+        <thead>
+          <tr>
+            <th scope="col">SID</th>
+            <th scope="col">ROLL NO</th>
+            <th scope="col">FIRST NAME</th>
+            <th scope="col">LAST NAME</th>
+            <th scope="col">CITY</th>
+            <th scope="col">UPDATE</th>
+            <th scope="col">DELETE</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in obj %}
+          <tr>
+            
+            <td>{{i.sid}}</td>
+            <td>{{i.roll_no}}</td>
+            <td>{{i.fname}}</td>
+            <td>{{i.lname}}</td>
+            <td>{{i.city}}</td>
+            <td><button class="btn btn-warning btn-sm"><a href="{% url 'update_url' i.id%}">UPDATE</a></button></td>
+            <td><button class="btn btn-danger btn-sm"><a href="{% url 'delete_url' i.id%}">DELETE</a></button></td>
+            
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <div class="pagination justify-content-center">
+        {% if obj.has_previous %}
+        <a href="{% url 'show_url' %}?page={{obj.previous_page_number}}">Previous</a>
+        {% endif %}
+    
+    <span> 
+      page{{obj.number}} of {{obj.paginator.num_pages}}
+    </span>
+    
+        {% if obj.has_next %}
+        <a href="{% url 'show_url' %}?page={{obj.next_page_number}}">Next</a>
+        {% endif %}
+    
+      </div>
+    {% endblock %}
